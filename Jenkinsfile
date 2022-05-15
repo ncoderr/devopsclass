@@ -10,6 +10,7 @@ pipeline {
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "192.168.3.91:8081"
+		NEXUSPORT = "8081"
         NEXUS_REPOSITORY = "vpro-release"
 	    NEXUS_REPOGRP_ID    = "vpro-maven-group"
         NEXUS_CREDENTIAL_ID = "nexus-admin"
@@ -53,6 +54,7 @@ pipeline {
             }
         }
 
+/*
         stage('CODE ANALYSIS with SONARQUBE') {
           
 		  environment {
@@ -76,6 +78,7 @@ pipeline {
             }
           }
         }
+*/
 
         stage("Publish to Nexus Repository Manager") {
             steps {
@@ -114,4 +117,30 @@ pipeline {
             }
         }
     }
+ post {
+     success { 
+        withCredentials([string(credentialsId: 'tg_bot_token', variable: 'TOKEN'), string(credentialsId: 'tg_bot_chat_id', variable: 'CHAT_ID')]) {
+        sh  ("""
+            curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*${env.JOB_NAME}* : POC *Branch*: ${env.GIT_BRANCH} *Build* : OK *Published* = YES'
+        """)
+        }
+     }
+
+     aborted {
+        withCredentials([string(credentialsId: 'tg_bot_token', variable: 'TOKEN'), string(credentialsId: 'tg_bot_chat_id', variable: 'CHAT_ID')]) {
+        sh  ("""
+            curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*${env.JOB_NAME}* : POC *Branch*: ${env.GIT_BRANCH} *Build* : `Aborted` *Published* = `Aborted`'
+        """)
+        }
+     
+     }
+     failure {
+        withCredentials([string(credentialsId: 'tg_bot_token', variable: 'TOKEN'), string(credentialsId: 'tg_bot_chat_id', variable: 'CHAT_ID')]) {
+        sh  ("""
+            curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=markdown -d text='*${env.JOB_NAME}* : POC  *Branch*: ${env.GIT_BRANCH} *Build* : `not OK` *Published* = `no`'
+        """)
+        }
+     }
+
+ }
 }
