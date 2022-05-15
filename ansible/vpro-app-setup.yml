@@ -1,11 +1,12 @@
 - name: Setup Tomcat8 & Deploy Artifact
   hosts: appsrvgrp
   become: yes
-  vars_files: 
-    - vars/vault.yml
   vars:
     timestamp: "{{ansible_date_time.date}}_{{ansible_date_time.hour}}_{{ansible_date_time.minute}}"
   tasks:
+    - name: Include protected vars
+      include_vars: 
+        file: vars/vault.yml
     - name: Download latest VProfile.war from nexus
       get_url:
         url: "http://{{nexus_user}}:{{nexus_password}}@{{nexusip}}:8081/repository/{{reponame}}/{{groupid}}/vprofile-{{time}}/{{build}}/vprofile-{{vprofile_version}}"
