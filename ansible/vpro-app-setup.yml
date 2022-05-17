@@ -10,8 +10,8 @@
         
     - name: Download latest VProfile.war from nexus
       get_url:
-        url: "http://{{nexus_user}}:{{nexus_password}}@{{nexusip}}:{{nexusport}}/repository/{{reponame}}/{{groupid}}/{{artifactId}}/{{vprofile_version}}/{{artifactId}}-{{vprofile_version}}"
-        dest: "/tmp/vproapp-{{vprofile_version}}"
+        url: "http://{{nexus_user}}:{{nexus_password}}@{{nexusip}}:{{nexusport}}/repository/{{reponame}}/{{groupid}}/{{artifactId}}/{{vprofile_version}}/{{artifactId}}-{{vprofile_version}}.war"
+        dest: "/tmp/vproapp-{{vprofile_version}}.war"
       register: wardeploy
       tags:
        - deploy
