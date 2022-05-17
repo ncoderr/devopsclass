@@ -13,7 +13,7 @@ pipeline {
         FILE_PATH = 'target/vprofile-v2.war'
         ARTIFACT_ID = 'vprofile'
         VERSION = "${env.BUILD_TIMESTAMP}-${env.BUILD_ID}"
-        INVENTORY_PATH = 'inventory'
+        INVENTORY_PATH = 'ansible/inventory'
     }
 
     stages{
