@@ -7,13 +7,18 @@ pipeline {
     }
 */	
     environment {
+        NEXUS_IP = 192.168.3.91
+        NEXUS_PORT = 8081
         NEXUS_INSTANCE_ID = 'NexusRepoMgr'
         NEXUS_REPOSITORY = "vpro-release"
         NEXUS_GROUP = "QA"
         FILE_PATH = 'target/vprofile-v2.war'
         ARTIFACT_ID = 'vprofile'
         VERSION = "${env.BUILD_TIMESTAMP}-${env.BUILD_ID}"
-        INVENTORY_PATH = 'ansible/inventory'
+        INVENTORY_PATH_STAGE = 'ansible/inventory_stage'
+        INVENTORY_PATH_PROD = 'ansible/inventory_prod'
+        ANSIBLE_CRED_ID = 'vagrant'
+        ANSIBLE_VAULT_CRED_ID = 'ansible-vault-pass'
     }
 
     stages{
@@ -68,12 +73,31 @@ pipeline {
             steps {
                   ansiblePlaybook(
                     playbook: 'ansible/site.yml',
-                    inventory: INVENTORY_PATH,
-                    credentialsId: 'vagrant',
-                    vaultCredentialsId: 'ansible-vault-pass',
+                    inventory: INVENTORY_PATH_STAGE,
+                    credentialsId: ANSIBLE_CRED_ID,
+                    vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
                     extraVars: [
-                      nexusip: '192.168.3.91',
-                      nexusport: '8081',
+                      nexusip: NEXUS_IP,
+                      nexusport: NEXUS_PORT,
+                      reponame: NEXUS_REPOSITORY,
+                      groupid: NEXUS_GROUP,
+                      vprofile_version: VERSION,
+                      artifactId: ARTIFACT_ID
+                    ])
+            }
+        }
+
+
+        stage('Deploy-to-Prod'){
+            steps {
+                  ansiblePlaybook(
+                    playbook: 'ansible/site.yml',
+                    inventory: INVENTORY_PATH_PROD,
+                    credentialsId: ANSIBLE_CRED_ID,
+                    vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
+                    extraVars: [
+                      nexusip: NEXUS_IP,
+                      nexusport: NEXUS_PORT,
                       reponame: NEXUS_REPOSITORY,
                       groupid: NEXUS_GROUP,
                       vprofile_version: VERSION,
