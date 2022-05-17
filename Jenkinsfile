@@ -76,7 +76,8 @@ pipeline {
                       nexusport: '8081',
                       reponame: NEXUS_REPOSITORY,
                       groupid: NEXUS_GROUP,
-                      vprofile_version: VERSION
+                      vprofile_version: VERSION,
+                      artifactId: ARTIFACT_ID
                     ])
             }
         }
