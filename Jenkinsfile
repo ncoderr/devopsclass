@@ -76,7 +76,6 @@ pipeline {
                     inventory: INVENTORY_PATH_STAGE,
                     credentialsId: ANSIBLE_CRED_ID,
                     vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
-                    hostKeyChecking: False,
                     extraVars: [
                       nexusip: NEXUS_IP,
                       nexusport: NEXUS_PORT,
@@ -96,7 +95,6 @@ pipeline {
                     inventory: INVENTORY_PATH_PROD,
                     credentialsId: ANSIBLE_CRED_ID,
                     vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
-                    hostKeyChecking: False,
                     extraVars: [
                       nexusip: NEXUS_IP,
                       nexusport: NEXUS_PORT,
