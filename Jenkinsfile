@@ -13,7 +13,7 @@ pipeline {
         NEXUSPORT = "8081"
         NEXUS_REPOSITORY = "vpro-release"
 	    NEXUS_REPOGRP_ID    = "vpro-maven-group"
-        NEXUS_CREDENTIAL_ID = "nexus-admin"
+        NEXUS_CREDENTIALS_ID = "nexus-admin"
         ARTVERSION = "${env.BUILD_ID}"
     }
 	
@@ -78,6 +78,7 @@ pipeline {
           }
         }
 */
+/*
         stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -95,7 +96,7 @@ pipeline {
                             groupId: pom.groupId,
                             version: ARTVERSION,
                             repository: NEXUS_REPOSITORY,
-                            credentialsId: NEXUS_CREDENTIAL_ID,
+                            credentialsId: NEXUS_CREDENTIALS_ID,
                             artifacts: [
                                 [artifactId: pom.artifactId,
                                 classifier: '',
@@ -112,6 +113,27 @@ pipeline {
                         error "*** File: ${artifactPath}, could not be found";
                     }
                 }
+            }
+        }
+*/
+
+        stage("Publish to Nexus Repository Manager") {
+            steps {
+              nexusArtifactUploader {
+                nexusVersion(NEXUS_VERSION)
+                protocol(NEXUS_PROTOCOL)
+                nexusUrl(NEXUS_URL)
+                groupId('QA')
+                version(ARTVERSION)
+                repository(NEXUS_REPOSITORY)
+                credentialsId(NEXUS_CREDENTIALS_ID)
+                artifact {
+                    artifactId('nexus-artifact-uploader')
+                    type('war')
+                    classifier('')
+                    file('nexus-artifact-uploader.war')
+                }
+              }
             }
         }
 
