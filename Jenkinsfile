@@ -120,13 +120,13 @@ pipeline {
         stage("Publish to Nexus Repository Manager") {
             steps {
               nexusArtifactUploader {
-                nexusVersion(NEXUS_VERSION)
-                protocol(NEXUS_PROTOCOL)
-                nexusUrl(NEXUS_URL)
+                nexusVersion("nexus3")
+                protocol("http")
+                nexusUrl("192.168.3.91:8081")
                 groupId('QA')
-                version(ARTVERSION)
-                repository(NEXUS_REPOSITORY)
-                credentialsId(NEXUS_CREDENTIALS_ID)
+                version("${env.BUILD_ID}")
+                repository("vpro-release")
+                credentialsId("nexus-admin")
                 artifact {
                     artifactId('nexus-artifact-uploader')
                     type('war')
