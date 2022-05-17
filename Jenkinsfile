@@ -7,8 +7,8 @@ pipeline {
     }
 */	
     environment {
-        NEXUS_IP = 192.168.3.91
-        NEXUS_PORT = 8081
+        NEXUS_IP = '192.168.3.91'
+        NEXUS_PORT = '8081'
         NEXUS_INSTANCE_ID = 'NexusRepoMgr'
         NEXUS_REPOSITORY = "vpro-release"
         NEXUS_GROUP = "QA"
