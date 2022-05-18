@@ -98,7 +98,7 @@ pipeline {
             }
 
             timeout(time: 10, unit: 'MINUTES') {
-               waitForQualityGate(webhookSecretId: 'sqtoken4class', abortPipeline: true)
+               waitForQualityGate(webhookSecretId: 'wh4class', abortPipeline: true)
             }
           }
         }
