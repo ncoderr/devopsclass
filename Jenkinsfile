@@ -10,8 +10,8 @@ pipeline {
         ARTIFACT_ID = 'vprofile'
         VERSION = "${env.BUILD_TIMESTAMP}-${env.BUILD_ID}"
         NEXUS_INSTANCE_ID = 'NexusRepoMgr'
-        INVENTORY_PATH_STAGE = 'ansible/inventory_stage'
-        INVENTORY_PATH_PROD = 'ansible/inventory_prod'
+        INVENTORY_PATH_STAGE = 'ansible/inventory-stage'
+        INVENTORY_PATH_PROD = 'ansible/inventory-prod'
         ANSIBLE_CRED_ID = 'vagrant'
         ANSIBLE_VAULT_CRED_ID = 'vault4nexus'
     }
