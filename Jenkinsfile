@@ -107,7 +107,7 @@ pipeline {
             }
 
             timeout(time: 10, unit: 'MINUTES') {
-               waitForQualityGate(webhookSecretId: 'yourSecretID', abortPipeline: true)
+               waitForQualityGate(webhookSecretId: 'sonartoken', abortPipeline: true)
             }
           }
         }
