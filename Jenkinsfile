@@ -62,7 +62,7 @@ pipeline {
 
         stage('Deploy-to-Stage'){
             steps {
-                  ansiblePlaybook(
+                  ansiblePlaybook (
                     playbook: 'ansible/site.yml',
                     inventory: INVENTORY_PATH_STAGE,
                     credentialsId: ANSIBLE_CRED_ID,
@@ -75,7 +75,7 @@ pipeline {
                       groupid: NEXUS_GROUP,
                       vprofile_version: VERSION,
                       artifactId: ARTIFACT_ID
-                    ])
+                    ] )
             }
         }
 
@@ -100,6 +100,7 @@ pipeline {
             timeout(time: 10, unit: 'MINUTES') {
                waitForQualityGate(webhookSecretId: 'sqtoken4class', abortPipeline: true)
             }
+          }
         }
 
         stage('Deploy-to-Prod'){
