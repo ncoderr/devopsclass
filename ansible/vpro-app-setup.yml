@@ -70,12 +70,6 @@
               tags:
                 - deploy
 
-            - name: Wait until ROOT.war is extracted to ROOT directory
-              wait_for:
-                path: /usr/local/tomcat8/webapps/ROOT
-              tags:
-                - deploy
-
           rescue:
             - shell: cp -r old_ROOT ROOT
               args:
@@ -93,6 +87,12 @@
         name: tomcat
         state: started
       when: deploy_info.changed
+      tags:
+        - deploy
+
+    - name: Wait until ROOT.war is extracted to ROOT directory
+      wait_for:
+        path: /usr/local/tomcat8/webapps/ROOT
       tags:
         - deploy
 
