@@ -1,4 +1,3 @@
-FROM: ergotoro/nanoimg:V2
 version: '3'
 services:
   vprodb:
