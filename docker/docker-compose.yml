@@ -26,7 +26,6 @@ services:
     image: vprofile/vprofileapp:V1
     ports:
       - "8098:8080"
-      - "8080:8098"
     volumes:
       - vproappdata:/usr/local/tomcat/webapps
 
