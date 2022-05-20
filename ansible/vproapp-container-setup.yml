@@ -16,8 +16,6 @@
       copy:
         src: docker/docker-compose.yml
         dest: /tmp/vproapp/docker-compose.yml
-      loop:
-        - docker-compose.yml
 
     - name: Setup with docker-compose
       docker-compose:
