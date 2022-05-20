@@ -5,7 +5,7 @@
   tasks:
     - name: Create remote temp dir
       file:
-        dir: /tmp/vproapp
+        directory: /tmp/vproapp
         state: present
 
     - name: Copy Docker Compose files
