@@ -14,9 +14,10 @@
         dest: /tmp/vproapp/docker-compose.yml
 
     - name: Setup with docker-compose
-      community.docker.docker_compose:
+      community.docker_compose:
         project_src: /tmp/vproapp
         files: docker-compose.yml
+        remote_src: true
       register: contdeploy
 
     - name: Display result
