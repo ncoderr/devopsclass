@@ -2,26 +2,7 @@
   hosts: appsrvgrp
   become: yes
 
-  pre_tasks:
-    - wait_for_connection: { timeout: 300 }
-    - setup:
-
-  vars:
-    docker_sdk_for_python_install: True
-    docker_compose_install: True
-    docker_daemon_config:
-      default-address-pools:
-        - { base: 172.16.0.0/16, size: 26 }
-      log-driver: "json-file"
-      log-opts:
-        max-size: "10m"
-        max-file: "3"
-
   tasks:
-    - name: Install Docker
-      import_role:
-        name: docker
-
     - name: Create remote temp dir
       file:
         path: /tmp/vproapp
@@ -33,9 +14,9 @@
         dest: /tmp/vproapp/docker-compose.yml
 
     - name: Setup with docker-compose
-      docker_compose:
-        project_src: /tmp/vproapp
-        files: docker-compose.yml
+      shell:
+        cmd: docker compose up
+        chdir: /tmp/vproapp
       register: contdeploy
 
     - name: Display result
