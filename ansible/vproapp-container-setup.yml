@@ -10,7 +10,7 @@
 
     - name: Copy Docker Compose files
       copy:
-        src: docker/docker-compose.yml
+        src: files/docker-compose.yml
         dest: /tmp/vproapp/docker-compose.yml
 
     - name: Setup with docker-compose
