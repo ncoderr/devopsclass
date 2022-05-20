@@ -1,8 +1,7 @@
 - name: Deploy containers
   hosts: appsrvgrp
   become: yes
-  vars:
-    timestamp: "{{ansible_date_time.date}}_{{ansible_date_time.hour}}_{{ansible_date_time.minute}}"
+
   tasks:
     - name: Include protected vars
       include_vars: 
@@ -29,3 +28,5 @@
     - name: Display result
       debug:
         msg: "Log from docker-compose: \n {{contdeploy}}\n"
+      when: contdeploy.changed = true
+
