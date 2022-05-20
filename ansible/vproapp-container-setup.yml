@@ -1,0 +1,31 @@
+- name: Deploy containers
+  hosts: appsrvgrp
+  become: yes
+  vars:
+    timestamp: "{{ansible_date_time.date}}_{{ansible_date_time.hour}}_{{ansible_date_time.minute}}"
+  tasks:
+    - name: Include protected vars
+      include_vars: 
+        file: vars/vault.yml
+
+    - name: Create remote temp dir
+      file:
+        dir: /tmp/vproapp
+        state: present
+
+    - name: Copy Docker Compose files
+      copy:
+        src: docker/docker-compose.yml
+        dest: /tmp/vproapp/docker-compose.yml
+      loop:
+        - docker-compose.yml
+
+    - name: Setup with docker-compose
+      docker-compose:
+        project_src: /tmp/vproapp
+        files: docker-compose.yml
+      register: contdeploy
+
+    - name: Display result
+      debug:
+        msg: "Log from docker-compose: \n {{contdeploy}}\n"
