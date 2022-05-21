@@ -1,7 +1,7 @@
 version: '3'
 services:
   vprodb:
-    image: vpro-docker-release/vprodb:V2
+    image: 192.168.3.91:8082/vpro-docker-release/vprodb:V2
     ports:
       - "3306:3306"
     volumes:
@@ -23,14 +23,14 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
 
   vproapp:
-    image: vpro-docker-release/vproapp:V2
+    image: 192.168.3.91:8082/vpro-docker-release/vproapp:V2
     ports:
       - "8098:8080"
     volumes:
       - vproappdata:/usr/local/tomcat/webapps
 
   vproweb:
-    image: vpro-docker-release/vproweb:V2
+    image: 192.168.3.91:8082/vpro-docker-release/vproweb:V2
     ports:
       - "80:80"
 volumes:
