@@ -22,5 +22,5 @@
     - name: Display result
       debug:
         msg: "Log from docker-compose: \n {{contdeploy}}\n"
-      when: contdeploy.changed = true
+
 
