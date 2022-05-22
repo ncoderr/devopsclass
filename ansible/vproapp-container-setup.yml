@@ -3,6 +3,10 @@
   become: yes
 
   tasks:
+    - name: Include vars
+      include_vars:
+        file: vars/mysql.yml
+
     - name: Create remote temp dir
       file:
         path: /tmp/vproapp

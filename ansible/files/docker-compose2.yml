@@ -7,7 +7,7 @@ services:
     volumes:
       - vprodbdata:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=vprodbpass
+      - MYSQL_ROOT_PASSWORD={{mysql_root_pass}}
 
   vprocache01:
     image: memcached
@@ -39,11 +39,24 @@ services:
       - "80:80"
 
   memcached_xptr:
-    image: quay.io/prometheus/memcached-exporter:latest
+    image: quay.io/prometheus/memcached-exporter
     network_mode: "host"
     ports:
       - "9150:9150"
 
+  web_xptr:
+    image: hipages/php-fpm_exporter
+    network_mode: "host"
+    ports:
+      - "9253:9253"
+
+  mysql_xptr:
+    image: prom/mysqld-exporter
+    network_mode: "host"
+    ports:
+      - 9104:9104
+    environment:
+      - DATA_SOURCE_NAME=root:{{mysql_root_pass}}@(localhost:3306)/
 volumes:
   vprodbdata: {}
   vproappdata: {}
