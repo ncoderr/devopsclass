@@ -38,9 +38,13 @@ services:
 
   rabbitmq_xptr:
     image: kbudde/rabbitmq-exporter
+    ports:
+      - "9419:9419"
 
   memcached_xptr:
     image: quay.io/prometheus/memcached-exporter:latest
+    ports:
+      - "9150:9150"
 
 volumes:
   vprodbdata: {}
