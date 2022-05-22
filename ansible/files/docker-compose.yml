@@ -11,6 +11,7 @@ services:
 
   vprodb:
     image: vprofile/vprofiledb:V1
+    network_mode: "host"
     ports:
       - "3306:3306"
     volumes:
@@ -20,11 +21,13 @@ services:
 
   vprocache01:
     image: memcached
+    network_mode: "host"
     ports:
       - "11211:11211"
 
   vpromq01:
     image: rabbitmq
+    network_mode: "host"
     ports:
       - "15672:15672"
       - "25672:25672"
@@ -35,6 +38,7 @@ services:
 
   vproapp:
     image: 192.168.3.91:8082/vpro-docker-release/vproapp:V2
+    network_mode: "host"
     ports:
       - "8098:8080"
     volumes:
@@ -42,6 +46,7 @@ services:
 
   vproweb:
     image: vprofile/vprofileweb:V1
+    network_mode: "host"
     ports:
       - "80:80"
 volumes:
