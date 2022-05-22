@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
 	 vb.cpus = "4"
      vb.name = "dz3_nexus"
 	end
+	nexus.vm.provision "shell", path: "userdata/nexus-setup.sh"
   end
 
   config.vm.define "dz3_vproapp" do |vproapp|
