@@ -16,12 +16,14 @@
     - name: Stop all docker containers
       shell:
         cmd: docker stop $(docker ps -q)
+      ignore_errors: true
       tags:
         - docker-cleanup
 
     - name: Remove all docker containers
       shell:
         cmd: docker rm $(docker ps -a -q)
+      ignore_errors: true
       tags:
         - docker-cleanup
 
