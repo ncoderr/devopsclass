@@ -5,7 +5,7 @@
   tasks:
     - name: Include vars
       include_vars:
-        file: vars/mysql.yml
+        dir: vars
 
     - name: Create remote temp dir
       file:
@@ -42,5 +42,3 @@
     - name: Display result
       debug:
         msg: "Log from docker-compose: \n {{contdeploy}}\n"
-
-

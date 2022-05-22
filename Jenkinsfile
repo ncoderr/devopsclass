@@ -16,7 +16,6 @@ pipeline {
         ARTIFACT_ID = 'vprofile'
         VERSION = "${env.BUILD_TIMESTAMP}-${env.BUILD_ID}"
         INVENTORY_PATH_STAGE = 'ansible/inventory_stage'
-        INVENTORY_PATH_PROD = 'ansible/inventory_prod'
         ANSIBLE_CRED_ID = 'vagrant'
         ANSIBLE_VAULT_CRED_ID = 'ansible-vault-pass'
     }
@@ -74,49 +73,6 @@ pipeline {
                   ansiblePlaybook(
                     playbook: 'ansible/site.yml',
                     inventory: INVENTORY_PATH_STAGE,
-                    credentialsId: ANSIBLE_CRED_ID,
-                    vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
-                    disableHostKeyChecking: true,
-                    extraVars: [
-                      nexusip: NEXUS_IP,
-                      nexusport: NEXUS_PORT,
-                      reponame: NEXUS_REPOSITORY,
-                      groupid: NEXUS_GROUP,
-                      vprofile_version: VERSION,
-                      artifactId: ARTIFACT_ID
-                    ])
-            }
-        }
-
-        stage('CODE ANALYSIS with SONARQUBE') {
-
-		  environment {
-             scannerHome = tool 'Sonar-project'
-          }
-
-          steps {
-            withSonarQubeEnv('Sonar-project') {
-               sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-                   -Dsonar.projectName=vprofile-repo \
-                   -Dsonar.projectVersion=1.0 \
-                   -Dsonar.sources=src/ \
-                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-            }
-
-            timeout(time: 10, unit: 'MINUTES') {
-               waitForQualityGate(webhookSecretId: 'sonartoken', abortPipeline: true)
-            }
-          }
-        }
-
-        stage('Deploy-to-Prod'){
-            steps {
-                  ansiblePlaybook(
-                    playbook: 'ansible/site.yml',
-                    inventory: INVENTORY_PATH_PROD,
                     credentialsId: ANSIBLE_CRED_ID,
                     vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
                     disableHostKeyChecking: true,

@@ -1,0 +1,4 @@
+nexus_host: nexus
+memcached_host: vproapp
+rabbitmq_host: vproapp
+mysql_host: vproapp
