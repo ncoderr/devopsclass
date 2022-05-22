@@ -14,7 +14,7 @@
 
     - name: Copy Docker Compose files
       copy:
-        src: files/docker-compose2.yml
+        src: templates/docker-compose.j2
         dest: /tmp/vproapp/docker-compose.yml
 
     - name: Stop all docker containers
