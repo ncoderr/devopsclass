@@ -1,5 +1,14 @@
 version: '3'
 services:
+
+  rabbitmq_xptr:
+    image: kbudde/rabbitmq-exporter
+    network_mode: "host"
+
+  memcached_xptr:
+    image: quay.io/prometheus/memcached-exporter:latest
+    network_mode: "host"
+
   vprodb:
     image: vprofile/vprofiledb:V1
     ports:
@@ -23,7 +32,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
 
   vproapp:
-    image: vprofile/vprofileapp:V1
+    image: 192.168.3.91:8082/vpro-docker-release/vproapp:V2
     ports:
       - "8098:8080"
     volumes:
