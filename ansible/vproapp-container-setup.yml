@@ -13,9 +13,10 @@
         state: directory
 
     - name: Copy Docker Compose files
-      copy:
+      template:
         src: templates/docker-compose.j2
         dest: /tmp/vproapp/docker-compose.yml
+        force: yes
 
     - name: Stop all docker containers
       shell:
