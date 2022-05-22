@@ -18,6 +18,7 @@ services:
     image: rabbitmq
     network_mode: "host"
     ports:
+      - "15692:15692"
       - "15672:15672"
       - "25672:25672"
       - "5672:5672"
@@ -36,12 +37,6 @@ services:
     image: 192.168.3.91:8082/vpro-docker-release/vproweb:V2
     ports:
       - "80:80"
-
-  rabbitmq_xptr:
-    image: kbudde/rabbitmq-exporter
-    network_mode: "host"
-    ports:
-      - "9419:9419"
 
   memcached_xptr:
     image: quay.io/prometheus/memcached-exporter:latest
