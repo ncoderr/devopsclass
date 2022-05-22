@@ -13,11 +13,31 @@
         src: files/docker-compose2.yml
         dest: /tmp/vproapp/docker-compose.yml
 
+    - name: Stop all docker containers
+      shell:
+        cmd: docker stop $(docker ps -q)
+      tags:
+        - docker-cleanup
+
+    - name: Remove all docker containers
+      shell:
+        cmd: docker rm $(docker ps -a -q)
+      tags:
+        - docker-cleanup
+
+    - name: Remove all unused and dangling docker images
+      shell:
+        cmd: docker system prune --all
+      tags:
+        - docker-cleanup
+
     - name: Setup with docker-compose
       shell:
         cmd: docker compose up -d
         chdir: /tmp/vproapp
       register: contdeploy
+      tags:
+        - container-setup
 
     - name: Display result
       debug:

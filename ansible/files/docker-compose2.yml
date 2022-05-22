@@ -33,6 +33,15 @@ services:
     image: 192.168.3.91:8082/vpro-docker-release/vproweb:V2
     ports:
       - "80:80"
+
+  rabbitmq_xptr:
+    image: kbudde/rabbitmq-exporter
+    network_mode: "host"
+
+  memcached_xptr:
+    image: quay.io/prometheus/memcached-exporter:latest
+    network_mode: "host"
+
 volumes:
   vprodbdata: {}
   vproappdata: {}
