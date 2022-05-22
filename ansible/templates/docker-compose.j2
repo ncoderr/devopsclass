@@ -1,7 +1,7 @@
 version: '3'
 services:
   vprodb:
-    image: dz3_nexus:8082/vpro-docker-release/vprodb:V2
+    image: {{nexus_host}}:{{nexus_docker_port}}/{{nexus_docker_repo}}/vprodb:V2
     ports:
       - "3306:3306"
     volumes:
@@ -16,41 +16,25 @@ services:
 
   vpromq01:
     image: rabbitmq
-    network_mode: "host"
     ports:
-      - "15692:15692"
       - "15672:15672"
-      - "25672:25672"
       - "5672:5672"
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
 
   vproapp:
-    image: 192.168.3.91:8082/vpro-docker-release/vproapp:V2
+    image: {{nexus_host}}:{{nexus_docker_port}}/{{nexus_docker_repo}}/vproapp:V2
     ports:
       - "8098:8080"
     volumes:
       - vproappdata:/usr/local/tomcat/webapps
 
   vproweb:
-    image: 192.168.3.91:8082/vpro-docker-release/vproweb:V2
+    image: {{nexus_host}}:{{nexus_docker_port}}/{{nexus_docker_repo}}/vproweb:V2
     ports:
       - "80:80"
 
-  memcached_xptr:
-    image: quay.io/prometheus/memcached-exporter
-    network_mode: "host"
-    ports:
-      - "9150:9150"
-
-  mysql_xptr:
-    image: prom/mysqld-exporter
-    network_mode: "host"
-    ports:
-      - 9104:9104
-    environment:
-      - "DATA_SOURCE_NAME=root:{{mysql_root_pass}}@(localhost:3306)/"
 volumes:
   vprodbdata: {}
   vproappdata: {}

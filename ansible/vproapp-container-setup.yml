@@ -1,6 +1,8 @@
 - name: Deploy containers
   hosts: appsrvgrp
   become: yes
+  roles:
+    - geerlingguy.docker
 
   tasks:
     - name: Include vars
