@@ -20,16 +20,9 @@
       tags:
         - docker-cleanup
 
-    - name: Remove all docker containers
-      shell:
-        cmd: docker rm $(docker ps -a -q)
-      ignore_errors: true
-      tags:
-        - docker-cleanup
-
     - name: Remove all unused and dangling docker images
       shell:
-        cmd: docker system prune --all
+        cmd: docker system prune --all --force
       tags:
         - docker-cleanup
 
