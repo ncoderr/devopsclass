@@ -1,11 +1,11 @@
 pipeline {
-    
+
 	agent any
-/*	
+/*
 	tools {
         maven "maven3"
     }
-*/	
+*/
     environment {
         NEXUS_IP = '192.168.3.71'
         NEXUS_PORT = '8081'
