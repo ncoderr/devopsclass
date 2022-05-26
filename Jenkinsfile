@@ -1,11 +1,7 @@
 pipeline {
 
 	agent any
-/*
-	tools {
-        maven "maven3"
-    }
-*/
+
     environment {
         NEXUS_IP = '192.168.3.71'
         NEXUS_PORT = '8081'
@@ -15,9 +11,6 @@ pipeline {
         FILE_PATH = 'target/vprofile-v2.war'
         ARTIFACT_ID = 'vprofile'
         VERSION = "${env.BUILD_TIMESTAMP}-${env.BUILD_ID}"
-        INVENTORY_PATH_STAGE = 'ansible/inventory_stage'
-        ANSIBLE_CRED_ID = 'vagrant'
-        ANSIBLE_VAULT_CRED_ID = 'ansible-vault-pass'
     }
 
     stages{
