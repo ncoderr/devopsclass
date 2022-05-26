@@ -68,24 +68,5 @@ pipeline {
           }
         }
 
-        stage('Deploy-to-Stage'){
-            steps {
-                  ansiblePlaybook(
-                    playbook: 'ansible/site.yml',
-                    inventory: INVENTORY_PATH_STAGE,
-                    credentialsId: ANSIBLE_CRED_ID,
-                    vaultCredentialsId: ANSIBLE_VAULT_CRED_ID,
-                    disableHostKeyChecking: true,
-                    extraVars: [
-                      nexusip: NEXUS_IP,
-                      nexusport: NEXUS_PORT,
-                      reponame: NEXUS_REPOSITORY,
-                      groupid: NEXUS_GROUP,
-                      vprofile_version: VERSION,
-                      artifactId: ARTIFACT_ID
-                    ])
-            }
-        }
-
     }
 }

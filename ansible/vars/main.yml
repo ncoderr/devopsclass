@@ -1,6 +1,0 @@
-nexus_host: nexus
-memcached_host: vproapp
-rabbitmq_host: vproapp
-mysql_host: vproapp
-nexus_docker_port: 8082
-nexus_docker_repo: vpro-docker-release
