@@ -9,8 +9,8 @@ pipeline {
     environment {
         NEXUS_IP = '192.168.3.71'
         NEXUS_PORT = '8081'
-        NEXUS_INSTANCE_ID = 'NexusRepoMgr'
-        NEXUS_REPOSITORY = "vpro-release"
+        NEXUS_INSTANCE_ID = 'dz-nexus'
+        NEXUS_REPOSITORY = "vpro-maven-release"
         NEXUS_GROUP = "QA"
         FILE_PATH = 'target/vprofile-v2.war'
         ARTIFACT_ID = 'vprofile'

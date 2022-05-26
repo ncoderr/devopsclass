@@ -36,6 +36,7 @@ Vagrant.configure("2") do |config|
 	 vb.cpus = "1"
      vb.name = "dz3_vproapp"
 	end
+	vproapp.vm.provision "shell", path: "userdata/base-setup.sh"
   end
 
 end
