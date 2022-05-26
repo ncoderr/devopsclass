@@ -1,0 +1,4 @@
+app01-staging ansible_host=dz3_vproapp
+
+[appsrvgrp]
+app01-staging
