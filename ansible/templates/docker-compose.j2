@@ -7,9 +7,9 @@ services:
     volumes:
       - vprodbdata:/var/lib/mysql
     environment:
-      - "MYSQL_ROOT_PASSWORD={{mysql_root_pass}}"
+      - "MYSQL_ROOT_PASSWORD=admin123"
       - "MYSQL_USER=admin"
-      - "MYSQL_PASSWORD={{mysql_pass}}"
+      - "MYSQL_PASSWORD=admin123"
       - "MYSQL_DATABASE=accounts"
   vpromc:
     image: {{nexus_host}}:{{nexus_docker_port}}/{{nexus_docker_repo}}/vpromc:V2
