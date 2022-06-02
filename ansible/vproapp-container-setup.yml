@@ -22,7 +22,7 @@
     - name: Stop all docker containers
       shell:
         cmd: docker stop $(docker ps -q)
-        ignore_errors: true
+      ignore_errors: true
       tags:
         - docker-cleanup
 
